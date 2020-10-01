@@ -15,15 +15,16 @@ server.listen(process.env.PORT || port, (error) => {
     console.log('Server running on: ' + (process.env.PORT || port))
   }
 })
-app.use((req, res) => {
-  console.log(req, res)
-})
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
 app.use(enableCors)
-app.use('/api/',routes);
+app.use('/api/', routes);
+app.get('/', (req, res) => {
+  res.json({message: 'Family API'});
+})
 
 io.on('connection', (socket) => {
 
@@ -46,14 +47,6 @@ io.on('connection', (socket) => {
   })
 
 });
-
-
-
-
-
-
-
-
 
 
 mongoose.connect('mongodb://admin:RRecinos2015@ds231991.mlab.com:31991/family-location');
